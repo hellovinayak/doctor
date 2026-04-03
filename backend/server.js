@@ -22,13 +22,9 @@ app.use("/api/staff", require("./routes/staffRoutes"));
 app.use("/api/prescriptions", require("./routes/prescriptionRoutes"));
 app.use("/api/invoices", require("./routes/invoiceRoutes"));
 
-// Serve frontend in production
-const frontendBuild = path.join(__dirname, "../frontend/dist");
-app.use(express.static(frontendBuild));
-
-// All non-API routes → React app (for React Router)
-app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendBuild, "index.html"));
+// Root route
+app.get("/", (req, res) => {
+  res.send("ApexCare API is running!");
 });
 
 // Global error handler
