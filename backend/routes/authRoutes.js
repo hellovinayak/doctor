@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
+
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Doctor = require('../models/Doctor');
@@ -16,11 +16,9 @@ router.post('/register', async (req, res) => {
     let existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ error: 'An account with this email already exists' });
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
     const assignedRole = role || 'staff';
 
-    const user = new User({ name, email, password: hashedPassword, role: assignedRole });
+    const user = new User({ name, email, password, role: assignedRole });
     await user.save();
 
     // Auto-create profile in the role-specific collection
@@ -53,8 +51,7 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ error: 'Invalid email or password' });
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ error: 'Invalid email or password' });
+    if (password !== user.password) return res.status(400).json({ error: 'Invalid email or password' });
 
     const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1d' });
     res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
