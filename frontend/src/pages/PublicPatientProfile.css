@@ -286,7 +286,19 @@
 }
 
 @media (max-width: 600px) {
-  .medical-summary { grid-template-columns: 1fr; }
+  .public-profile-container { padding: 20px 16px; }
+  .public-header { margin-bottom: 20px; }
+  .profile-card { padding: 20px; margin-bottom: 20px; }
   .profile-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .status-badge { margin-left: 0; }
+  .status-badge { margin-left: 0; align-self: flex-start; }
+  .profile-avatar { width: 60px; height: 60px; font-size: 1.5rem; }
+  .profile-title h1 { font-size: 1.5rem; }
+  .info-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .medical-summary { grid-template-columns: 1fr; }
+  
+  .rx-card { padding: 16px; }
+  .rx-card-header { flex-direction: column; align-items: flex-start; gap: 12px; border-bottom: 1px solid var(--border-default); padding-bottom: 12px; }
+  .btn-dl-pdf { width: 100%; text-align: center; padding: 12px; font-size: 0.9rem; }
+  .med-name { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .med-dose { display: inline-block; padding: 2px 6px; background: var(--primary-100); border-radius: 4px; margin-top: 4px; }
 }
