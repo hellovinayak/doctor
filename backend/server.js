@@ -1,3 +1,5 @@
+const dns = require('node:dns');
+dns.setDefaultResultOrder('ipv4first');
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -34,7 +36,7 @@ app.use((err, req, res, next) => {
 });
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, { family: 4 })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => { console.error("MongoDB connection error:", err.message || err); });
 
