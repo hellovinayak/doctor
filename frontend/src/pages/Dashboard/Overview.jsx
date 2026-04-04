@@ -137,49 +137,6 @@ export default function Overview() {
           </div>
         </div>
 
-        <div className="section-card">
-          <div className="section-card-header">
-            <h3 className="section-card-title">Quick Actions</h3>
-          </div>
-          <div className="quick-actions">
-            <Link to="/dashboard/patients" className="quick-action-btn">
-              <div className="qa-icon qa-primary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-                  <line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/>
-                </svg>
-              </div>
-              <span>Add Patient</span>
-            </Link>
-            <Link to="/dashboard/doctors" className="quick-action-btn">
-              <div className="qa-icon qa-accent">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/>
-                  <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/>
-                </svg>
-              </div>
-              <span>Manage Doctors</span>
-            </Link>
-            <Link to="/dashboard/nurses" className="quick-action-btn">
-              <div className="qa-icon qa-cyan">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                </svg>
-              </div>
-              <span>View Nurses</span>
-            </Link>
-            <Link to="/dashboard/staff" className="quick-action-btn">
-              <div className="qa-icon qa-amber">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
-                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                </svg>
-              </div>
-              <span>Staff Directory</span>
-            </Link>
-          </div>
-        </div>
-
         {/* Admin: Registered Users Panel */}
         {user?.role === 'admin' && (
           <div className="section-card" style={{ marginTop: '24px' }}>
