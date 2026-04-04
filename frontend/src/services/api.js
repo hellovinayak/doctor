@@ -78,4 +78,9 @@ export const invoiceAPI = {
   delete: (id) => request(`/invoices/${id}`, { method: 'DELETE' }),
 };
 
-
+// ========== ATTENDANCE ==========
+export const attendanceAPI = {
+  getQRToken: () => request('/attendance/qr'),
+  getAll: () => request('/attendance'),
+  scanQR: (data) => request('/attendance/scan', { method: 'POST', body: JSON.stringify(data) }),
+};

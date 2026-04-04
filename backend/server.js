@@ -23,6 +23,7 @@ app.use("/api/nurses", require("./routes/nurseRoutes"));
 app.use("/api/staff", require("./routes/staffRoutes"));
 app.use("/api/prescriptions", require("./routes/prescriptionRoutes"));
 app.use("/api/invoices", require("./routes/invoiceRoutes"));
+app.use("/api/attendance", require("./routes/attendanceRoutes"));
 
 // Root route
 app.get("/", (req, res) => {

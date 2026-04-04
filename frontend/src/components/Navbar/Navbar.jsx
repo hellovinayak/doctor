@@ -1,13 +1,37 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { Scanner } from '@yudiel/react-qr-scanner';
+import { toast } from 'react-toastify';
+import { attendanceAPI } from '../../services/api';
+import Modal from '../Modal/Modal';
 import './Navbar.css';
 
 export default function Navbar() {
   const { user, isAuthenticated } = useAuth();
   const location = useLocation();
   const isDashboard = location.pathname.startsWith('/dashboard');
+  const [isScanModalOpen, setIsScanModalOpen] = useState(false);
+
+  const handleScan = async (text) => {
+    if (!text) return;
+    try {
+      const res = await attendanceAPI.scanQR({
+        token: text,
+        userId: user.id || user._id,
+        name: user.name,
+        role: user.role
+      });
+      toast.success(res.message || 'Attendance marked successfully!');
+      setIsScanModalOpen(false);
+    } catch (err) {
+      toast.error(err.message || 'Failed to mark attendance.');
+      setIsScanModalOpen(false);
+    }
+  };
 
   return (
+    <>
     <nav className="navbar glass" id="main-navbar">
       <div className="navbar-inner">
         <Link to="/" className="navbar-brand" id="navbar-brand">
@@ -42,6 +66,23 @@ export default function Navbar() {
         <div className="navbar-actions" id="navbar-actions">
           {isAuthenticated ? (
             <div className="user-menu">
+              {isAuthenticated && user.role !== 'admin' && (
+                <button
+                  type="button"
+                  className="btn btn-sm btn-glass flex items-center gap-2"
+                  onClick={() => setIsScanModalOpen(true)}
+                  style={{ marginRight: '10px' }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <rect x="7" y="7" width="3" height="3"/>
+                    <rect x="14" y="7" width="3" height="3"/>
+                    <rect x="7" y="14" width="3" height="3"/>
+                    <rect x="14" y="14" width="3" height="3"/>
+                  </svg>
+                  Scan QR
+                </button>
+              )}
               <div className="user-avatar">
                 {user.name.charAt(0)}
               </div>
@@ -66,5 +107,18 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+    <Modal isOpen={isScanModalOpen} onClose={() => setIsScanModalOpen(false)} title="Scan Attendance QR">
+      <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <p style={{ marginBottom: '20px', textAlign: 'center', color: 'var(--text-muted)' }}>Position the QR code within the frame.</p>
+        <div style={{ width: '100%', maxWidth: '300px', borderRadius: '12px', overflow: 'hidden' }}>
+          {isScanModalOpen && <Scanner onScan={(detectedCodes) => {
+            if (detectedCodes && detectedCodes.length > 0) {
+              handleScan(detectedCodes[0].rawValue);
+            }
+          }} />}
+        </div>
+      </div>
+    </Modal>
+    </>
   );
 }

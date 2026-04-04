@@ -14,6 +14,7 @@ import Nurses from './pages/Dashboard/Nurses';
 import Staff from './pages/Dashboard/Staff';
 import Prescriptions from './pages/Dashboard/Prescriptions';
 import Billing from './pages/Dashboard/Billing';
+import Attendance from './pages/Dashboard/Attendance';
 import PublicPatientProfile from './pages/PublicPatientProfile';
 
 function ProtectedRoute({ children }) {
@@ -47,6 +48,7 @@ function AppRoutes() {
           <Route path="staff" element={<Staff />} />
           <Route path="prescriptions" element={<Prescriptions />} />
           <Route path="billing" element={<Billing />} />
+          <Route path="attendance" element={<Attendance />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
